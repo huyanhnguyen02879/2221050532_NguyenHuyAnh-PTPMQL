@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "Thêm sinh viên";
+}
+
+
+<h2>@ViewData["Title"]</h2>
+
+
+<form asp-action="Create" method="post">
+
+    <label>Họ tên</label>
+    <input name="Name" />
+
+    <br />
+
+    <label>Địa chỉ</label>
+    <input name="Address" />
+
+    <br />
+
+    <label>Trường</label>
+    <input type="text" name="University" />
+
+    <br />
+
+    <button type="submit">
+        Thêm
+    </button>
+
+</form>

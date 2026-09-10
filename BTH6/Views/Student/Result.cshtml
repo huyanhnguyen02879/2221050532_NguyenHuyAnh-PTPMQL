@@ -1,0 +1,20 @@
+<h2>@ViewData["Title"]</h2>
+
+@if (TempData["Success"] != null)
+{
+    <p>@TempData["Success"]</p>
+}
+
+<h3>Thông tin sinh viên</h3>
+
+<p>
+    Họ tên: @ViewBag.Student.Name
+</p>
+
+<p>
+    Địa chỉ: @ViewBag.Student.Address
+</p>
+
+<p>
+    Trường: @ViewBag.Student.University
+</p>
