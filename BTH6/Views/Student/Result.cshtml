@@ -1,20 +1,53 @@
-<h2>@ViewData["Title"]</h2>
+<div class="container student-container">
 
-@if (TempData["Success"] != null)
+
+<h2 class="student-title">
+    @ViewData["Title"]
+</h2>
+
+
+@if(TempData["Success"] != null)
 {
-    <p>@TempData["Success"]</p>
+    <div class="alert alert-success">
+
+        @TempData["Success"]
+
+    </div>
 }
 
-<h3>Thông tin sinh viên</h3>
 
-<p>
-    Họ tên: @ViewBag.Student.Name
-</p>
 
-<p>
-    Địa chỉ: @ViewBag.Student.Address
-</p>
+<div class="card">
 
-<p>
-    Trường: @ViewBag.Student.University
-</p>
+    <div class="card-header">
+        Thông tin sinh viên
+    </div>
+
+
+    <div class="card-body">
+
+
+        <p>
+            <b>Họ tên:</b>
+            @ViewBag.Student.Name
+        </p>
+
+
+        <p>
+            <b>Địa chỉ:</b>
+            @ViewBag.Student.Address
+        </p>
+
+
+        <p>
+            <b>Trường:</b>
+            @ViewBag.Student.University
+        </p>
+
+
+    </div>
+
+</div>
+
+
+</div>

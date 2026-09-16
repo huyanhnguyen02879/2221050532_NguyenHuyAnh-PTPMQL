@@ -3,28 +3,63 @@
 }
 
 
-<h2>@ViewData["Title"]</h2>
+<div class="container student-container">
+
+    <h2 class="student-title">
+        @ViewData["Title"]
+    </h2>
 
 
-<form asp-action="Create" method="post">
+    <form asp-action="Create" method="post">
 
-    <label>Họ tên</label>
-    <input name="Name" />
 
-    <br />
+        <div class="mb-3">
 
-    <label>Địa chỉ</label>
-    <input name="Address" />
+            <label class="form-label">
+                Họ tên
+            </label>
 
-    <br />
+            <input name="Name"
+                   class="form-control" />
 
-    <label>Trường</label>
-    <input type="text" name="University" />
+        </div>
 
-    <br />
 
-    <button type="submit">
-        Thêm
-    </button>
 
-</form>
+        <div class="mb-3">
+
+            <label class="form-label">
+                Địa chỉ
+            </label>
+
+            <input name="Address"
+                   class="form-control" />
+
+        </div>
+
+
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Trường
+            </label>
+
+            <input name="University"
+                   class="form-control" />
+
+        </div>
+
+
+
+        <button type="submit"
+                class="btn btn-primary btn-add">
+
+            Thêm sinh viên
+
+        </button>
+
+
+    </form>
+
+</div>
