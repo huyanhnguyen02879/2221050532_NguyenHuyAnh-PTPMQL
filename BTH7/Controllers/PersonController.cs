@@ -6,11 +6,11 @@ using BTH7.Data;
 
 namespace BTH7.Controllers;
 
-public class StudentController : Controller
+public class PersonController : Controller
 {
     private readonly ApplicationDbContext _context;
 
-    public StudentController(ApplicationDbContext context)
+    public PersonController(ApplicationDbContext context)
     {
         _context = context;
     }
@@ -33,7 +33,6 @@ public class StudentController : Controller
         {
             _context.Students.Add(student);
             await _context.SaveChangesAsync();
-            Console.WriteLine("Đã lưu");
             return RedirectToAction(nameof(Index));
         }
         return View(student);
@@ -56,7 +55,7 @@ public class StudentController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Update(int id, [Bind("Id,Name,Email")] Student student)
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email")] Student student)
     {
         if (id != student.Id)
         {
