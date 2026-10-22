@@ -12,5 +12,7 @@ namespace BTH7.Data
         public DbSet<Student> Students { get; set; }
 
         public DbSet<Lecturer> Lecturers { get; set; }
+
+        public DbSet<Employee> Employees { get; set; }
     }
 }

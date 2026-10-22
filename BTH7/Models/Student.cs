@@ -13,7 +13,7 @@ namespace BTH7.Models
         
         public string Name { get; set; }
 
-        
+        [EmailAddress(ErrorMessage = "Vui lòng nhập đúng định dạng email")]
         public string Email { get; set; }
 
     }
