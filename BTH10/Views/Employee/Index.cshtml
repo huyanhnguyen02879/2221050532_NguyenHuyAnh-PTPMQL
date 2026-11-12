@@ -1,47 +1,47 @@
 @model IEnumerable<BTH7.Models.Employee>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Nhân viên";
 }
 
-<h1>Index</h1>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="mb-0">Danh sách nhân viên</h1>
+    <button type="button"
+            class="btn btn-primary js-open-employee-modal"
+            data-url="@Url.Action("Create", "Employee")">
+        Thêm nhân viên
+    </button>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<div id="employee-list-error" class="alert alert-danger d-none" role="alert"></div>
+
+<form id="employee-search-form" class="row g-2 mb-3" asp-action="Index" method="get">
+    <div class="col-sm-8 col-md-6">
+        <label class="visually-hidden" for="employee-search">Tìm nhân viên</label>
+        <input id="employee-search"
+               name="searchTerm"
+               value="@ViewData["SearchTerm"]"
+               class="form-control"
+               placeholder="Tìm theo mã, họ tên hoặc email..." />
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-outline-primary">Tìm kiếm</button>
+        <button type="button" id="employee-search-clear" class="btn btn-outline-secondary">Xóa</button>
+    </div>
+</form>
+
+<div id="employee-table-container">
+    <partial name="_EmployeeTable" model="Model" />
+</div>
+
+<div class="modal fade" id="employee-modal" tabindex="-1" aria-labelledby="employee-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content" id="employee-modal-content"></div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/ajaxCrud.js" asp-append-version="true"></script>
+    <script src="~/js/employee.js" asp-append-version="true"></script>
 }
-    </tbody>
-</table>

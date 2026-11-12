@@ -1,0 +1,42 @@
+@model BTH7.Models.Faculty
+
+@{
+    var linkedStudentCount = (int)(ViewData["LinkedStudentCount"] ?? 0);
+}
+
+<div class="modal-header">
+    <h2 class="modal-title fs-5" id="faculty-modal-title">Xóa khoa</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+</div>
+<form asp-action="Delete"
+      asp-route-id="@Model.FacultyId"
+      method="post"
+      class="js-faculty-form"
+      data-operation="delete">
+    <div class="modal-body">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        @if (linkedStudentCount > 0)
+        {
+            <div class="alert alert-warning" role="alert">
+                Khoa này đang có @linkedStudentCount sinh viên. Hãy chuyển sinh viên sang khoa khác trước khi xóa.
+            </div>
+        }
+        else
+        {
+            <p>Bạn có chắc chắn muốn xóa khoa này không?</p>
+        }
+        <dl class="row mb-0">
+            <dt class="col-sm-3">Mã khoa</dt>
+            <dd class="col-sm-9">@Model.FacultyCode</dd>
+            <dt class="col-sm-3">Tên khoa</dt>
+            <dd class="col-sm-9">@Model.FacultyName</dd>
+        </dl>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        @if (linkedStudentCount == 0)
+        {
+            <button type="submit" class="btn btn-danger">Xóa</button>
+        }
+    </div>
+</form>

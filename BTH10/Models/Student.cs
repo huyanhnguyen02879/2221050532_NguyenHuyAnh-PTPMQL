@@ -10,17 +10,20 @@ namespace BTH7.Models
         [Key]
         public int Id { get; set; }
 
+        public string StudentCode { get; set; } = "";
         
         public string Name { get; set; }
 
         [EmailAddress(ErrorMessage = "Vui lòng nhập đúng định dạng email")]
         public string Email { get; set; }
 
+        public int AdmissionYear { get; set; }
+
         public int FacultyId { get; set; }
 
         public Faculty? Faculty { get; set; }
 
-        public string StudentCode { get; set; } = "";
+
 
     }
 }

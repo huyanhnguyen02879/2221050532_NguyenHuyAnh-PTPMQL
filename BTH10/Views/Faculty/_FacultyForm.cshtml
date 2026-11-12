@@ -1,0 +1,38 @@
+@model BTH7.Models.Faculty
+
+@{
+    var actionName = (string)ViewData["FormAction"]!;
+    var isCreate = actionName == "Create";
+}
+
+<div class="modal-header">
+    <h2 class="modal-title fs-5" id="faculty-modal-title">@ViewData["ModalTitle"]</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+</div>
+<form asp-action="@actionName"
+      asp-route-id="@(isCreate ? null : Model.FacultyId)"
+      method="post"
+      class="js-faculty-form"
+      data-operation="@(isCreate ? "create" : "edit")">
+    <div class="modal-body">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        @if (!isCreate)
+        {
+            <input type="hidden" asp-for="FacultyId" />
+        }
+        <div class="mb-3">
+            <label asp-for="FacultyCode" class="form-label">Mã khoa</label>
+            <input asp-for="FacultyCode" class="form-control" />
+            <span asp-validation-for="FacultyCode" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="FacultyName" class="form-label">Tên khoa</label>
+            <input asp-for="FacultyName" class="form-control" />
+            <span asp-validation-for="FacultyName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn-primary">@(isCreate ? "Tạo mới" : "Lưu thay đổi")</button>
+    </div>
+</form>

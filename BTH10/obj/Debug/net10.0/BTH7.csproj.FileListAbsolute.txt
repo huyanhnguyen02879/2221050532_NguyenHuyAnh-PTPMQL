@@ -658,3 +658,8 @@ E:\2627ptpmql\BTH10\obj\Debug\net10.0\refint\BTH7.dll
 E:\2627ptpmql\BTH10\obj\Debug\net10.0\BTH7.pdb
 E:\2627ptpmql\BTH10\obj\Debug\net10.0\BTH7.genruntimeconfig.cache
 E:\2627ptpmql\BTH10\obj\Debug\net10.0\ref\BTH7.dll
+E:\2627ptpmql\BTH10\obj\Debug\net10.0\compressed\6h52860hse-{0}-7d3vpvc915-7d3vpvc915.gz
+E:\2627ptpmql\BTH10\obj\Debug\net10.0\compressed\smchke816r-{0}-g3h3t7eh18-g3h3t7eh18.gz
+E:\2627ptpmql\BTH10\obj\Debug\net10.0\compressed\jwl45p4ulp-{0}-1iso70tdbg-1iso70tdbg.gz
+E:\2627ptpmql\BTH10\obj\Debug\net10.0\compressed\r7mwyb0t1l-{0}-o4acrx54pe-o4acrx54pe.gz
+E:\2627ptpmql\BTH10\obj\Debug\net10.0\compressed\gmjpygzrpx-{0}-ry1o0rk91n-ry1o0rk91n.gz

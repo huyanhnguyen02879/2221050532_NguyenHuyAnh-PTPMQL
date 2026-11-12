@@ -1,0 +1,96 @@
+@model IEnumerable<BTH7.Models.Employee>
+
+@{
+    var currentPageIndex = (int)(ViewData["Page"] ?? 1);
+    var totalPages = (int)(ViewData["TotalPages"] ?? 1);
+}
+
+<div data-current-page="@currentPageIndex">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Mã nhân viên</th>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th class="text-end">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    @foreach (var employee in Model)
+                    {
+                        <tr>
+                            <td>@employee.Id</td>
+                            <td>@employee.Name</td>
+                            <td>@employee.Email</td>
+                            <td class="text-end text-nowrap">
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-info js-open-employee-modal"
+                                        data-url="@Url.Action("Details", "Employee", new { id = employee.Id })">
+                                    Chi tiết
+                                </button>
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-primary js-open-employee-modal"
+                                        data-url="@Url.Action("Edit", "Employee", new { id = employee.Id })">
+                                    Sửa
+                                </button>
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-danger js-open-employee-modal"
+                                        data-url="@Url.Action("Delete", "Employee", new { id = employee.Id })">
+                                    Xóa
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">
+                            Không tìm thấy nhân viên phù hợp.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (totalPages > 1)
+    {
+        <nav aria-label="Phân trang nhân viên">
+            <ul class="pagination justify-content-center">
+                <li class="page-item @(currentPageIndex <= 1 ? "disabled" : "")">
+                    <button type="button"
+                            class="page-link js-employee-page"
+                            data-page="@(currentPageIndex - 1)"
+                            aria-label="Trang trước"
+                            disabled="@(currentPageIndex <= 1)">
+                        Trước
+                    </button>
+                </li>
+                @for (var pageNumber = 1; pageNumber <= totalPages; pageNumber++)
+                {
+                    <li class="page-item @(pageNumber == currentPageIndex ? "active" : "")">
+                        <button type="button"
+                                class="page-link js-employee-page"
+                                data-page="@pageNumber"
+                                aria-current="@(pageNumber == currentPageIndex ? "page" : null)">
+                            @pageNumber
+                        </button>
+                    </li>
+                }
+                <li class="page-item @(currentPageIndex >= totalPages ? "disabled" : "")">
+                    <button type="button"
+                            class="page-link js-employee-page"
+                            data-page="@(currentPageIndex + 1)"
+                            aria-label="Trang sau"
+                            disabled="@(currentPageIndex >= totalPages)">
+                        Sau
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>

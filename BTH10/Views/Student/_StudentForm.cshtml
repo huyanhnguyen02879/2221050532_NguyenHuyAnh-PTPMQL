@@ -1,0 +1,49 @@
+@model BTH7.Models.Student
+
+@{
+    var actionName = (string)ViewData["FormAction"]!;
+    var isCreate = actionName == "Create";
+}
+
+<div class="modal-header">
+    <h2 class="modal-title fs-5" id="student-modal-title">@ViewData["ModalTitle"]</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+</div>
+<form asp-action="@actionName"
+      asp-route-id="@(isCreate ? null : Model.Id)"
+      method="post"
+      class="js-student-form"
+      data-operation="@(isCreate ? "create" : "edit")">
+    <div class="modal-body">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        @if (!isCreate)
+        {
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-3">
+                <label asp-for="StudentCode" class="form-label">Mã sinh viên</label>
+                <input asp-for="StudentCode" class="form-control" readonly />
+            </div>
+        }
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Họ tên</label>
+            <input asp-for="Name" class="form-control" autocomplete="name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input asp-for="Email" class="form-control" autocomplete="email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="FacultyId" class="form-label">Khoa</label>
+            <select asp-for="FacultyId" class="form-select" asp-items="ViewBag.FacultyId">
+                <option value="">-- Chọn khoa --</option>
+            </select>
+            <span asp-validation-for="FacultyId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn-primary">@(isCreate ? "Tạo mới" : "Lưu thay đổi")</button>
+    </div>
+</form>

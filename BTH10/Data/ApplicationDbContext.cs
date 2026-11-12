@@ -15,5 +15,11 @@ namespace BTH7.Data
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<BTH7.Models.Faculty> Faculty { get; set; } = default!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Student>().Ignore(student => student.AdmissionYear);
+        }
     }
 }

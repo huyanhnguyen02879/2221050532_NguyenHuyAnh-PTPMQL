@@ -1,0 +1,103 @@
+@model IEnumerable<BTH7.Models.Student>
+
+@{
+    var currentPageIndex = (int)(ViewData["Page"] ?? 1);
+    var totalPages = (int)(ViewData["TotalPages"] ?? 1);
+}
+
+<div data-current-page="@currentPageIndex">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Mã sinh viên</th>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>Khoa</th>
+                    <th class="text-end">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    @foreach (var student in Model)
+                    {
+                        <tr>
+                            <td>@student.StudentCode</td>
+                            <td>@student.Name</td>
+                            <td>@student.Email</td>
+                            <td>
+                                @if (student.Faculty != null)
+                                {
+                                    @($"{student.Faculty.FacultyCode} - {student.Faculty.FacultyName}")
+                                }
+                            </td>
+                            <td class="text-end text-nowrap">
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-info js-open-student-modal"
+                                        data-url="@Url.Action("Details", "Student", new { id = student.Id })">
+                                    Chi tiết
+                                </button>
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-primary js-open-student-modal"
+                                        data-url="@Url.Action("Edit", "Student", new { id = student.Id })">
+                                    Sửa
+                                </button>
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-danger js-open-student-modal"
+                                        data-url="@Url.Action("Delete", "Student", new { id = student.Id })">
+                                    Xóa
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">
+                            Không tìm thấy sinh viên phù hợp.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (totalPages > 1)
+    {
+        <nav aria-label="Phân trang sinh viên">
+            <ul class="pagination justify-content-center">
+                <li class="page-item @(currentPageIndex <= 1 ? "disabled" : "")">
+                    <button type="button"
+                            class="page-link js-student-page"
+                            data-page="@(currentPageIndex - 1)"
+                            aria-label="Trang trước"
+                            disabled="@(currentPageIndex <= 1)">
+                        Trước
+                    </button>
+                </li>
+                @for (var pageNumber = 1; pageNumber <= totalPages; pageNumber++)
+                {
+                    <li class="page-item @(pageNumber == currentPageIndex ? "active" : "")">
+                        <button type="button"
+                                class="page-link js-student-page"
+                                data-page="@pageNumber"
+                                aria-current="@(pageNumber == currentPageIndex ? "page" : null)">
+                            @pageNumber
+                        </button>
+                    </li>
+                }
+                <li class="page-item @(currentPageIndex >= totalPages ? "disabled" : "")">
+                    <button type="button"
+                            class="page-link js-student-page"
+                            data-page="@(currentPageIndex + 1)"
+                            aria-label="Trang sau"
+                            disabled="@(currentPageIndex >= totalPages)">
+                        Sau
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>
