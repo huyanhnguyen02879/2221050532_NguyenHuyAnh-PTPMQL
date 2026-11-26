@@ -1,0 +1,33 @@
+@model BTH7.Models.ChangeEmailViewModel
+
+@{
+    ViewData["Title"] = "Đổi email";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h3 mb-4">Đổi email</h1>
+                <form asp-action="ChangeEmail" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <div class="mb-3">
+                        <label asp-for="NewEmail" class="form-label">Email mới</label>
+                        <input asp-for="NewEmail" class="form-control" autocomplete="email" />
+                        <span asp-validation-for="NewEmail" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="CurrentPassword" class="form-label">Mật khẩu hiện tại</label>
+                        <input asp-for="CurrentPassword" class="form-control" autocomplete="current-password" />
+                        <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Gửi liên kết xác nhận</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

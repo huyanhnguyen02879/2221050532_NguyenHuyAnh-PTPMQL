@@ -1,0 +1,45 @@
+@model BTH7.Models.PermissionManagementViewModel
+
+<div class="table-responsive">
+    <table class="table table-bordered table-sm align-middle">
+        <thead>
+            <tr>
+                <th>Controller</th>
+                <th>Action</th>
+                @foreach (var role in Model.Roles)
+                {
+                    <th class="text-center">@role.Name</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var controller in Model.Controllers)
+            {
+                var actionCount = controller.Actions.Count;
+                @for (var actionIndex = 0; actionIndex < actionCount; actionIndex++)
+                {
+                    var action = controller.Actions[actionIndex];
+                    <tr>
+                        @if (actionIndex == 0)
+                        {
+                            <td rowspan="@actionCount"><strong>@controller.Name</strong></td>
+                        }
+                        <td>@action.Action</td>
+                        @foreach (var role in Model.Roles)
+                        {
+                            var isAdministrator = string.Equals(role.Name, BTH7.Models.AppRoles.Administrator, StringComparison.OrdinalIgnoreCase);
+                            <td class="text-center">
+                                <input class="form-check-input js-permission-toggle"
+                                       type="checkbox"
+                                       data-role-id="@role.Id"
+                                       data-permission-id="@action.Id"
+                                       checked="@(isAdministrator || action.GrantedRoleIds.Contains(role.Id))"
+                                       disabled="@isAdministrator" />
+                            </td>
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

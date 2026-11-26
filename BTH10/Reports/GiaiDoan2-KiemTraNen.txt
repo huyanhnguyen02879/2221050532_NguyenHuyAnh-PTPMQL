@@ -1,0 +1,44 @@
+BAO CAO GIAI DOAN 2 - KIEM TRA VA ON DINH DU AN NEN
+
+1. Muc tieu
+Xac nhan du an hien tai co the build va khoi dong truoc khi thay doi Identity.
+
+2. Phan tich
+Build nen co 0 errors; cac warnings da duoc ghi nhan tai GiaiDoan1. Ung dung dung SQLite hien co va migrations lich su dang duoc nhan dien boi EF Core.
+
+3. Cac file da sua
+Chi tao bao cao giai doan nay; khong sua ma nguon.
+
+4. Cac file moi tao
+BTH10/Reports/GiaiDoan2-KiemTraNen.txt.
+
+5. Cac package da cai
+Khong cai package.
+
+6. Migration da tao
+Khong tao migration.
+
+7. Thay doi database
+Khong thay doi database. Danh sach migration va so dong bang du lieu nghiep vu khong thay doi.
+
+8. Cac buoc thuc hien
+- Chay dotnet build BTH10/BTH7.csproj --no-restore.
+- Khoi dong binary tren http://127.0.0.1:5137 va goi GET /.
+- Chay dotnet ef migrations list --project BTH10/BTH7.csproj --no-build.
+
+9. Ket qua Build
+Build succeeded, 0 errors, 12 warnings (2 NU1901, 8 nullable trong model, 2 nullable trong Student views).
+
+10. Ket qua kiem thu
+- Runtime smoke test: GET / tra HTTP 200; noi dung Home co "Welcome".
+- EF Core nhan dien ca 8 migrations hien co, bao gom tat ca migrations da duoc ghi nhan trong __EFMigrationsHistory.
+- Chua co Identity de kiem thu auth; chua thay doi App.db.
+
+11. Cac loi da gap
+Khong gap build/runtime error. Canh bao NU1901 ve hai goi NuGet va nullable warnings van con.
+
+12. Cach khac phuc
+Khong can sua loi trong giai doan nay. Khong nang cap package hoac sua warnings ngoai pham vi de tranh thay doi khong lien quan.
+
+13. Luu y cho buoc tiep theo
+Tich hop Identity bang migration additive tren cung ApplicationDbContext; sao luu SQLite co tinh den WAL truoc khi cap nhat schema. Chi chay migration sau khi build va xem xet generated migration.

@@ -1,0 +1,87 @@
+BAO CAO GIAI DOAN 9 - KIEM THU TONG HOP
+
+1. Muc tieu
+Kiem tra lai build, authentication, authorization, CRUD/AJAX cua cac module cu, dynamic permission va tinh toan ven SQLite.
+
+2. Phan tich hien trang
+- Du an da co CRUD Identity Role, gán nhieu Role va dynamic permission Controller/Action.
+- Account register khong con gan Role.
+- Development email sender da duoc kiem callback.
+- SMTP thuc te van rong.
+- Khong co test project tu dong; kiem thu bang smoke HTTP va SQL.
+
+3. Phuong an da de xuat
+- Phuong an A: dung smoke test HTTP/cookie token thuc te va SQL.
+- Phuong an B: bo sung test project/IIntegrationTest sau giai doan de o to.
+
+4. Phuong an duoc lua chon
+Phuong an A cho giai doan nay. Phuong an B nen duoc xem xet o giai doan bao tri sau.
+
+5. Cac file da sua
+Khong sua ma nguon trong giai doan kiem thu.
+
+6. Cac file moi tao
+- Bao cao nay.
+
+7. Cac package da cai
+Khong cai package moi.
+
+8. Migration da tao
+Khong tao migration moi trong giai doan nay.
+
+9. Thay doi Database
+Khong thay doi schema hay du lieu nghiep vu trong smoke cuoi.
+- Dữ liệu Student 11, Faculty 3 duoc giu nguyen.
+- Khong con tai khoan/email/role test trong danh sach smoke.
+
+10. Cac buoc thuc hien
+- dotnet build --no-restore.
+- Khoi dong app.
+- Dang nhap Administrator.
+- Goi cac Index Student/Faculty/Lecturer/Employee/Role/User/Permission.
+- Goi Ajax search partial cho 4 module nghiep vu.
+- Dang xuat va xac minh endpoint Ajax sau logout tra 401.
+- Thu Role revoke/grant va role assign o cac giai doan truoc.
+- Doc migration history, FK check va so dong.
+
+11. Ket qua Build
+- dotnet build thanh cong.
+- 0 error.
+- 2 warning NU1901 thap ve NuGet.Packaging/NuGet.Protocol.
+
+12. Ket qua kiem thu
+- Build: DAT.
+- Administrator login: DAT.
+- Logout: DAT; endpoint AJAX sau logout tra 401.
+- Student: HTTP 200.
+- Faculty: HTTP 200.
+- Lecturer: HTTP 200.
+- Employee: HTTP 200.
+- RoleManagement: HTTP 200.
+- UserManagement: HTTP 200.
+- PermissionManagement: HTTP 200.
+- AJAX partial/search: 200 cho 4 module.
+- Dynamic permission: Admin dat, Manager dat/Manager Student dat, Student va Manager Permission bi tu choi, thu/cap lai permission co hieu luc ngay.
+- CRUD Role: create/search/edit/delete JSON AJAX da xac minh.
+- Gán Role: multi-role add/remove va bảo vệ Administrator cuoi cung da xac minh.
+- Register: tai khoan moi khong co Role, chua confirmed, duplicate admin bi chan.
+- Confirm/Forgot/Reset: da xac minh callback qua Development sender.
+- Database: 10 migrations trong history, FK check rong.
+- Du lieu nghiep vu: 11 Student, 3 Faculty.
+- AspNetUsers 5, AspNetRoles 5, 34 permissions, 64 role-permission.
+
+13. Cac loi phat hien
+- NuGet NU1901 warning tu hai package.
+- SMTP that chua duoc cau hinh.
+- Khong co test project tu dong trong repository.
+- Mot check PSX dau co loi array form, da duoc khac phuc bang repeated form field va khong phai loi UI.
+
+14. Cach khac phuc
+- Lock iconh NHU cuc NU1901 can xem xet nang cap package tac dong neu thay doi dependency.
+- Cau hinh SMTP bang Secret Manager/environment truoc production.
+- Bo sung integration test project neu muon kiem thu lap lai tu dong.
+
+15. Luu y cho giai doan tiep theo
+- Khong khang dinh Email production hoat dong vi chua co SMTP that.
+- Khong khang dinh toan bo UI browser da duoc visual-test; da kiem tra HTTP/AJAX server.
+- He thong da co du cac nen tang; buoc cuoi la cau hinh SMTP production va test tren may/mail service that.

@@ -1,0 +1,53 @@
+BAO CAO GIAI DOAN 7 - EMAIL
+
+1. Muc tieu
+Tach email sender theo DI; dung SMTP doc tu configuration va sender gia lap chi trong Development de kiem thu link xac nhan/reset.
+
+2. Phan tich
+IEmailSender duoc trien khai boi SmtpEmailSender trong moi truong khong phai Development va DevelopmentEmailSender trong Development. SMTP host/port/SSL/from/user/password doc qua SmtpOptions. Neu thieu host/from hoac credential khong hop le, send bao loi ro rang; khong co thong tin SMTP that trong repository.
+
+3. Cac file da sua
+- BTH10/Program.cs: cau hinh SmtpOptions va chon sender theo environment.
+- BTH10/appsettings.json: them Smtp config khong chua credential that.
+- BTH10/Reports/GiaiDoan7-Email.txt.
+
+4. Cac file moi tao
+- BTH10/Services/SmtpOptions.cs.
+- BTH10/Services/SmtpEmailSender.cs.
+- BTH10/Reports/GiaiDoan7-Email.txt.
+
+5. Cac package da cai
+Khong cai package; dung System.Net.Mail co san trong .NET.
+
+6. Migration da tao
+Khong tao migration.
+
+7. Thay doi database
+Khong tao schema moi. Tao user tam de kiem thu auth flow va xoa dung tai khoan do sau test; 5 seed account va cac bang nghiep vu duoc giu nguyen.
+
+8. Cac buoc thuc hien
+- Them SMTP configuration/options/sender, gui HTML email qua DI.
+- Giu sender gia lap chi trong Development.
+- Chay app va lay confirmation/reset/change-email link tu log Development.
+- Kiem thu cac flow, sau do xoa user test.
+
+9. Ket qua Build
+Build succeeded, 0 errors, 12 warnings (2 NU1901, 8 nullable domain model, 2 nullable Student view).
+
+10. Ket qua kiem thu
+- Dang ky -> xac nhan email -> dang nhap: thanh cong (login HTTP 302).
+- Quen mat khau -> reset token -> dat mat khau moi -> dang nhap: thanh cong.
+- Doi mat khau va dang nhap bang mat khau moi: thanh cong.
+- Doi email -> xac nhan email moi -> dang nhap bang email moi: thanh cong.
+- SMTP that chua duoc kiem thu vi khong co SMTP host/credential trong moi truong.
+
+11. Cac loi da gap
+Khong gap build error hoac loi luong email khi dung sender Development. SMTP that khong the ket noi do khong duoc cung cap cau hinh.
+
+12. Cach khac phuc
+Khong can sua loi. Sender Development phuc vu kiem thu lien ket; SmtpEmailSender se bao loi huong dan neu Production chua duoc cau hinh.
+
+13. Luu y cho buoc tiep theo
+Cau hinh qua environment/User Secrets, khong commit secret:
+Smtp__Host, Smtp__Port, Smtp__EnableSsl, Smtp__SenderEmail, Smtp__SenderName, Smtp__UserName, Smtp__Password.
+Trong Development link token nam trong application logs; chi su dung local, khong chia se log.

@@ -1,0 +1,78 @@
+@model BTH7.Models.UserManagementViewModel
+
+@{
+    ViewData["Title"] = "Quản lý tài khoản";
+}
+
+<h1 class="h3 mb-4">Quản lý tài khoản</h1>
+
+<div class="table-responsive">
+    <table class="table table-striped align-middle">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Trạng thái</th>
+                <th>Thời điểm hết khóa (UTC)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Email</td>
+                    <td>
+                        @if (user.Roles.Count == 0)
+                        {
+                            <span class="text-muted">Chưa có Role</span>
+                        }
+                        else
+                        {
+                            @foreach (var role in user.Roles)
+                            {
+                                <span class="badge text-bg-primary me-1">@role</span>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @if (user.IsLockedOut)
+                        {
+                            <span class="badge text-bg-danger">Đang khóa</span>
+                        }
+                        else
+                        {
+                            <span class="badge text-bg-success">Hoạt động</span>
+                        }
+                    </td>
+                    <td>@(user.LockoutEnd?.ToString("u") ?? "—")</td>
+                    <td class="text-end">
+                        <button type="button"
+                                class="btn btn-sm btn-outline-primary js-open-user-role-modal"
+                                data-url="@Url.Action("EditRoles", "UserManagement", new { id = user.Id })">
+                            Cập nhật Role
+                        </button>
+                        @if (user.IsLockedOut)
+                        {
+                            <form asp-action="Unlock" method="post">
+                                <input type="hidden" name="id" value="@user.Id" />
+                                <button type="submit" class="btn btn-sm btn-outline-primary">Mở khóa</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="user-role-modal" tabindex="-1" aria-labelledby="user-role-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content" id="user-role-modal-content"></div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/userRoles.js" asp-append-version="true"></script>
+}

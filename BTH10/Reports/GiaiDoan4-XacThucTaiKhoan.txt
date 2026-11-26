@@ -1,0 +1,54 @@
+BAO CAO GIAI DOAN 4 - XAC THUC TAI KHOAN
+
+1. Muc tieu
+Bo sung cac luong dang nhap, dang xuat, dang ky, xac nhan email, gui lai xac nhan, quen/dat lai mat khau, doi mat khau, doi email/xac nhan email moi va Access Denied.
+
+2. Phan tich
+Dung UserManager/SignInManager va token providers cua Identity. Dang ky gan role Student, yeu cau xac nhan email truoc dang nhap; login bat lockout khi sai mat khau; ReturnUrl chi redirect ve URL noi bo. Change email yeu cau mat khau hien tai va chi cap nhat khi xac nhan token. Endpoint quen mat khau tra thong diep chung de han che lo tai khoan ton tai. Email trong Development duoc ghi log de lay lien ket kiem thu; Production fail-closed cho den khi co SMTP.
+
+3. Cac file da sua
+- BTH10/Program.cs: dang ky IEmailSender theo environment.
+- BTH10/Views/Shared/_Layout.cshtml: navigation tai khoan va cac trang CRUD.
+- BTH10/Reports/GiaiDoan4-XacThucTaiKhoan.txt: bao cao.
+
+4. Cac file moi tao
+- BTH10/Controllers/AccountController.cs.
+- BTH10/Models/AccountViewModels.cs.
+- BTH10/Services/IEmailSender.cs.
+- BTH10/Services/DevelopmentEmailSender.cs.
+- BTH10/Services/UnconfiguredEmailSender.cs.
+- 17 Razor view moi trong BTH10/Views/Account.
+- BTH10/Reports/GiaiDoan4-XacThucTaiKhoan.txt.
+
+5. Cac package da cai
+Khong cai them package.
+
+6. Migration da tao
+Khong tao migration trong giai doan nay.
+
+7. Thay doi database
+Khong thay doi database. Chua tao tai khoan do roles chua duoc seed.
+
+8. Cac buoc thuc hien
+- Tao view models, AccountController va email sender abstraction.
+- Them cac trang Bootstrap va dieu huong tai khoan trong layout.
+- Build project.
+- Khoi dong app voi working directory BTH10 va smoke-test cac GET route.
+
+9. Ket qua Build
+Build succeeded, 0 errors, 12 warnings (2 NU1901, 8 nullable trong domain models, 2 nullable trong Student views).
+
+10. Ket qua kiem thu
+- GET /Account/Login, /Register, /ForgotPassword, /ResendConfirmation, /AccessDenied tra HTTP 200.
+- Cac form POST co anti-forgery token.
+- Chua kiem thu chuyen tiep login/register/reset/confirm end-to-end vi chua seed roles/users; se kiem thu sau giai doan 6.
+- Chua co SMTP that; Development sender san sang ghi link vao log.
+
+11. Cac loi da gap
+Lan smoke-test dau goi binary tu thu muc repository root nen configuration provider khong tim thay appsettings.json va routes tra HTTP 500.
+
+12. Cach khac phuc
+Khoi dong binary voi working directory BTH10 (project content root); cac route sau do tra HTTP 200. Khong can thay doi code.
+
+13. Luu y cho buoc tiep theo
+Production email sender hien chu dong bao loi neu chua cau hinh, khong ghi token vao log. Se thay bang SMTP sender/doc config o giai doan 7. Dang ky can roles duoc seed o giai doan 6. Chua co ma tran [Authorize] tren controllers CRUD.

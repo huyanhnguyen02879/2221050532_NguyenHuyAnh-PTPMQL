@@ -1,0 +1,97 @@
+BAO CAO GIAI DOAN 4 - CRUD ROLE
+
+1. Muc tieu
+Bo sung quan ly Role bang ASP.NET Core Identity, giu nguyen MVC, Bootstrap, jQuery AJAX va SQLite hien co.
+
+2. Phan tich hien trang
+- He thong da co IdentityRole, RoleManager, seed 5 Role va policy ManageUsers.
+- AppSettings Development da seed cac tai khoan quan ly; thong tin password phai duoc xem la nhay cam va khong duoc dat vao code nguon ben ngoai moi truong Development.
+- Chua co giao dien CRUD cho Identity Role.
+- UserManagement chi hien tai moi ho tro mo khoa tai khoan.
+- Dang su dung AJAX modal chung qua ajaxCrud.js va partial table cho cac CRUD nghiep vu.
+
+3. Phuong an da de xuat
+- Phuong an A: IdentityRole truc tiep voi RoleManager; giao dien AJAX rieng va khong tao bang Role moi.
+- Phuong an B: Tao entity Role custom va mapping sang Identity; tang do phuc tap va du thua.
+- Phuong an C: Chi dung role seed co dinh va khong cho CRUD; khong dap ung yeu cau quan ly.
+
+4. Phuong an duoc lua chon
+Phuong an A. Role duoc luu truc tiep trong AspNetRoles, co the mo rong cho RoleManager, UserManager va phan quyen dong sau nay.
+
+5. Cac file da sua
+- BTH10/Controllers/RoleManagementController.cs
+- BTH10/Models/RoleViewModels.cs
+- BTH10/Views/Shared/_Layout.cshtml
+- BTH10/Views/RoleManagement/Index.cshtml
+- BTH10/Views/RoleManagement/_RoleTable.cshtml
+- BTH10/Views/RoleManagement/_RoleForm.cshtml
+- BTH10/Views/RoleManagement/_RoleDetails.cshtml
+- BTH10/Views/RoleManagement/_RoleDelete.cshtml
+- BTH10/Views/RoleManagement/Create.cshtml
+- BTH10/Views/RoleManagement/Edit.cshtml
+- BTH10/Views/RoleManagement/Details.cshtml
+- BTH10/Views/RoleManagement/Delete.cshtml
+- BTH10/wwwroot/js/role.js
+
+6. Cac file moi tao
+- Controller, models, views va script CRUD Role nho day du tren.
+
+7. Cac package da cai
+Khong cai package moi.
+
+8. Migration da tao
+Khong tao migration moi. Identity schema da co tu migration 20261119063414_AddIdentitySchema.
+
+9. Thay doi Database
+Khong thay doi schema database. CRUD Role thao tac tren cac bang AspNetRoles/AspNetUserRoles; role test da tao va xoa sau khi kiem thu.
+
+10. Cac buoc thuc hien
+- Them RoleViewModel voi validation ten Role.
+- Them RoleManagementController bao ve bang policy ManageUsers.
+- Them danh sach, tim kiem, phan trang, them, sua, chi tiet, xoa bang AJAX modal.
+- Chan sua/xoa Role Administrator.
+- Chan xoa Role dang duoc gan cho nguoi dung.
+- Them link quan ly Role vao layout.
+- Tao fallback MVC views cho cac thao tac khong dung AJAX.
+- Build va chay app.
+- Smoke test dang nhap, trang Role, tim kiem, them, sua, xoa va du lieu SQL.
+
+11. Ket qua Build
+dotnet build E:\2627ptpmql\BTH10\BTH7.csproj --no-restore
+- Ket qua: thanh cong.
+- 0 error.
+- Con 12 warning: 2 canh bao bao mat NU1901 cua NuGet.Packaging/NuGet.Protocol va cac warning nullable hien co cua cac model/view.
+
+12. Ket qua kiem thu
+- GET / tra HTTP 200.
+- /RoleManagement khi chua dang nhap tra HTTP 302 den trang Login.
+- Dang nhap Administrator thanh cong.
+- Mo trang danh sach Role thanh cong.
+- Tim kiem Role thanh cong.
+- Tao Role test bang AJAX thanh cong.
+- Sua Role test bang AJAX thanh cong.
+- Xoa Role test bang AJAX thanh cong.
+- Xac minh bang SQL sau kiem thu:
+  - AspNetRoles: 5 Role seeded, khong con Role test.
+  - AspNetUsers: 5 tai khoan seeded.
+  - Students: 11.
+  - Faculties: 3.
+  - Lecturers: 0.
+  - Employees: 0.
+
+13. Cac loi phat hien
+- Build ban dau khong co loi sau khi them Role CRUD.
+- Mot file script mat trang Razor co bieu thuc bien activePage da duoc sua thanh currentPageIndex.
+- Mot warning ban dau ve viec dung ContinueWith de lay user count da duoc thay bang await truc tiep.
+
+14. Cach khac phuc
+- Cai dat UserCount bang await _userManager.GetUsersInRoleAsync.
+- Sua bien phan trang trong _RoleTable.
+- Bao ve server khi Administrator khong the sua/xoa va khi Role con nguoi dung.
+
+15. Luu y cho giai doan tiep theo
+- Giai doan tiep theo la gan vai tro cho nguoi dung va thay UserManagementController hien tai.
+- Sau do ap dung Authorization dynamic theo phuong an A da duoc lua chon.
+- Kiem tra lai cac role hard-code hien co trong controller; doi tung action sang permission DB theo tung Controller/Action.
+- Xac nhan va thay doi password seed neu thong tin da duoc su dung ngoai moi truong Development.
+- Xac nhan SMTP that truoc khi ket luan Email hoat dong; hien tai Development sender chi ghi log email.

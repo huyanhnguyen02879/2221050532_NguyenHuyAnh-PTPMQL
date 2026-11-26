@@ -1,0 +1,19 @@
+@model BTH7.Models.RoleViewModel
+
+<div class="modal-header">
+    <h2 class="modal-title fs-5" id="role-modal-title">Chi tiết Role</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+</div>
+<div class="modal-body">
+    <dl class="row mb-0">
+        <dt class="col-sm-4">Tên Role</dt>
+        <dd class="col-sm-8">@Model.Name</dd>
+        <dt class="col-sm-4">Tên chuẩn hóa</dt>
+        <dd class="col-sm-8">@Model.NormalizedName</dd>
+        <dt class="col-sm-4">Số người dùng</dt>
+        <dd class="col-sm-8">@Model.UserCount</dd>
+    </dl>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+</div>

@@ -1,0 +1,26 @@
+@model BTH7.Models.RoleViewModel
+
+<div class="modal-header">
+    <h2 class="modal-title fs-5" id="role-modal-title">Xóa Role</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+</div>
+<form asp-action="Delete"
+      asp-route-id="@Model.Id"
+      method="post"
+      class="js-role-form"
+      data-operation="delete">
+    <div class="modal-body">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <p>Bạn có chắc muốn xóa Role <strong>@Model.Name</strong>?</p>
+        @if (Model.UserCount > 0)
+        {
+            <div class="alert alert-warning mb-0">
+                Role đang được gán cho @Model.UserCount người dùng.
+            </div>
+        }
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="submit" class="btn btn-danger" disabled="@(Model.UserCount > 0)">Xóa</button>
+    </div>
+</form>

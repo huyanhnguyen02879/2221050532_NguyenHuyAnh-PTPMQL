@@ -1,0 +1,19 @@
+@model bool
+
+@{
+    ViewData["Title"] = "Xác nhận email";
+}
+
+<div class="alert @(Model ? "alert-success" : "alert-danger")">
+    @if (Model)
+    {
+        <h1 class="h4">Email đã được xác nhận</h1>
+        <p class="mb-0"><a asp-action="Login">Đăng nhập</a> để tiếp tục.</p>
+    }
+    else
+    {
+        <h1 class="h4">Không thể xác nhận email</h1>
+        <p class="mb-0">Liên kết không hợp lệ hoặc đã hết hạn. Bạn có thể yêu cầu gửi lại email xác nhận.</p>
+        <a asp-action="ResendConfirmation">Gửi lại email</a>
+    }
+</div>

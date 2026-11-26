@@ -1,0 +1,33 @@
+@model BTH7.Models.RoleViewModel
+
+@{
+    var actionName = (string)ViewData["FormAction"]!;
+    var isCreate = actionName == "Create";
+}
+
+<div class="modal-header">
+    <h2 class="modal-title fs-5" id="role-modal-title">@ViewData["ModalTitle"]</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+</div>
+<form asp-action="@actionName"
+      asp-route-id="@(isCreate ? null : Model.Id)"
+      method="post"
+      class="js-role-form"
+      data-operation="@(isCreate ? "create" : "edit")">
+    <div class="modal-body">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        @if (!isCreate)
+        {
+            <input type="hidden" asp-for="Id" />
+        }
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Tên Role</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn-primary">@(isCreate ? "Tạo mới" : "Lưu thay đổi")</button>
+    </div>
+</form>

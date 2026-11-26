@@ -1,0 +1,61 @@
+BAO CAO GIAI DOAN 5 - PHAN QUYEN
+
+1. Muc tieu
+Ap dung role-based authorization tren server theo ma tran da thong nhat; khong dung dieu kien role viet truc tiep trong View.
+
+2. Phan tich
+- Administrator va Manager: CRUD Student, Faculty, Lecturer, Employee.
+- Lecturer: chi doc Student va Lecturer; khong truy cap thao tac them/sua/xoa.
+- Employee: chi doc danh sach Employee.
+- Student: khong truy cap CRUD nghiep vu do chua co quan he tai khoan-Student.
+- Quan ly tai khoan va mo khoa: Administrator.
+- Cac controller CRUD cu, bao gom PersonController duplicate, duoc bao ve de khong co route bo qua policy.
+- AJAX unauthenticated/forbidden nhan status 401/403 thay vi nhan 302 HTML login.
+
+3. Cac file da sua
+- BTH10/Controllers/StudentController.cs, FacultyController.cs, LecturerController.cs, EmployeeController.cs, PersonController.cs.
+- BTH10/Controllers/AccountController.cs.
+- BTH10/Program.cs: policy ManageUsers va cookie redirect cho AJAX.
+- BTH10/Views/Shared/_Layout.cshtml: hien link quan ly user dua tren policy.
+- BTH10/Reports/GiaiDoan5-PhanQuyen.txt.
+
+4. Cac file moi tao
+- BTH10/Models/AppRoles.cs va cac view models cho quan ly user.
+- BTH10/Controllers/UserManagementController.cs.
+- BTH10/Views/UserManagement/Index.cshtml.
+- BTH10/Reports/GiaiDoan5-PhanQuyen.txt.
+
+5. Cac package da cai
+Khong cai package.
+
+6. Migration da tao
+Khong tao migration.
+
+7. Thay doi database
+Khong thay doi database. Chua seed role/user.
+
+8. Cac buoc thuc hien
+- Gan authorize role tai controller/action theo ma tran.
+- Bao ve PersonController duplicate.
+- Them policy ManageUsers va man hinh mo khoa (lockout Identity tu dong sau 5 lan dang nhap sai; cua so 15 phut).
+- Doi cookie challenge cho AJAX sang 401/403.
+- Build va smoke-test request anonymous.
+
+9. Ket qua Build
+Build succeeded, 0 errors, 12 warnings (2 NU1901, 8 nullable model, 2 nullable Student view).
+
+10. Ket qua kiem thu
+- Anonymous GET Student/Faculty/Employee/Lecturer/UserManagement: HTTP 302 den /Account/Login.
+- Anonymous GET Student voi X-Requested-With=XMLHttpRequest: HTTP 401.
+- Chua kiem tra tung role dang nhap vi seed roles/users thuoc giai doan 6.
+
+11. Cac loi da gap
+- Build ban dau gap ambiguity giua MVC SignInResult va Identity SignInResult, va view chua truyen resource cho AuthorizeAsync.
+- Mot lan script smoke-test dung New-Object khong nap System.Net.Http assembly.
+
+12. Cach khac phuc
+- Dinh danh day du Microsoft.AspNetCore.Identity.SignInResult va truyen null resource vao AuthorizeAsync; build lai thanh cong.
+- Nap System.Net.Http, dung HttpClientHandler tat auto-redirect de doc ma 302/401 chinh xac.
+
+13. Luu y cho buoc tiep theo
+Quyen server-side da duoc gan nhung can seed cac role va kiem thu role matrix end-to-end. Chua them UserId vao Student, nen Student role khong duoc xem danh sach sinh vien.

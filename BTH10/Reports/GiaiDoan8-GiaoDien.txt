@@ -1,0 +1,40 @@
+BAO CAO GIAI DOAN 8 - GIAO DIEN
+
+1. Muc tieu
+Bo sung giao dien auth/authorization dong bo Bootstrap, giu lai giao dien CRUD AJAX hien co.
+
+2. Phan tich
+Account forms dung card/layout Bootstrap, validation summary, validation scripts va anti-forgery token. Layout co navigation den cac trang CRUD va account; link quan ly user duoc hien theo policy ManageUsers, khong kiem tra ten role truc tiep trong View. AccessDenied co trang 403 rieng. Cac partial/modal CRUD cu khong bi viet lai.
+
+3. Cac file da sua
+Khong sua them view trong giai doan nay; UI duoc tao o giai doan 4 va role-aware navigation o giai doan 5.
+
+4. Cac file moi tao
+BTH10/Reports/GiaiDoan8-GiaoDien.txt.
+
+5. Cac package da cai
+Khong cai package.
+
+6. Migration da tao
+Khong tao migration.
+
+7. Thay doi database
+Khong thay doi database.
+
+8. Cac buoc thuc hien
+Khoi dong app Development va truy cap cac route Login, Register, ForgotPassword, ResetPassword, AccessDenied, ConfirmEmail, ConfirmEmailChange, ChangePassword, ChangeEmail.
+
+9. Ket qua Build
+Build da thanh cong o giai doan 7 voi 0 errors; 12 warnings co san.
+
+10. Ket qua kiem thu
+Tat ca 9 route UI tra HTTP 200 trong smoke test (request helper tu theo redirect den trang Login cho ChangePassword/ChangeEmail khi chua dang nhap). Build Razor views thanh cong; form POST co anti-forgery token.
+
+11. Cac loi da gap
+Khong co loi UI/build.
+
+12. Cach khac phuc
+Khong can sua.
+
+13. Luu y cho buoc tiep theo
+Giai doan 9 can kiem thu lai CRUD/AJAX/search/pagination co dang nhap theo role; khong duoc xem cac GET route UI la bang chung cho luong MVC/AJAX day du.

@@ -1,0 +1,58 @@
+BAO CAO GIAI DOAN 3 - TICH HOP IDENTITY
+
+1. Muc tieu
+Tich hop ASP.NET Core Identity va cookie authorization vao MVC/EF Core hien co, giu nguyen cac bang nghiep vu va tao schema Identity bang migration additive.
+
+2. Phan tich
+ApplicationDbContext ke thua IdentityDbContext<IdentityUser> va giu nguyen DbSet cua cac thuc the nghiep vu. Identity duoc dang ky voi EF stores, token providers, cookie login/access-denied paths, confirmed account, unique email, password policy va lockout. Authentication middleware dat truoc authorization.
+
+3. Cac file da sua
+- BTH10/BTH7.csproj: them Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.12.
+- BTH10/Data/ApplicationDbContext.cs: ke thua IdentityDbContext<IdentityUser>.
+- BTH10/Program.cs: cau hinh Identity/cookie/authentication/authorization.
+- BTH10/Migrations/ApplicationDbContextModelSnapshot.cs: cap nhat snapshot.
+- BTH10/Reports/GiaiDoan3-IdentityCore.txt: bao cao.
+
+4. Cac file moi tao
+- BTH10/Migrations/20261119063414_AddIdentitySchema.cs.
+- BTH10/Migrations/20261119063414_AddIdentitySchema.Designer.cs.
+- BTH10/Reports/GiaiDoan3-IdentityCore.txt.
+
+5. Cac package da cai
+Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.12. Restore thanh cong; khong nang cap package khong lien quan.
+
+6. Migration da tao
+AddIdentitySchema: tao 7 bang Identity (AspNetRoles, AspNetUsers, RoleClaims, UserClaims, UserLogins, UserRoles, UserTokens) va index/foreign keys tuong ung. Khong sua cac migration cu.
+
+7. Thay doi database
+- Tao backup SQLite nhat quan truoc migration tai session files (khong nam trong repository).
+- Ap dung AddIdentitySchema thanh cong tren App.db.
+- So dong bang cu van giu nguyen: Students 11, Faculties 3, Employees 0, Lecturers 0.
+- Cac bang AspNetUsers/AspNetRoles hien trong database va rong; seed roles/users se duoc thuc hien o giai doan 6.
+- PRAGMA foreign_key_check khong co vi pham.
+- Phat hien __EFMigrationsLock co dong cu tu 2026-10-22 lam EF Core 10 cho doi. Sau khi xac nhan khong co tien trinh migration khac, da xoa dung dong lock cu (chi metadata lock), sau do migration chay thanh cong; lock hien rong.
+
+8. Cac buoc thuc hien
+- Sao luu App.db.
+- Restore package va build.
+- Tao migration AddIdentitySchema; kiem tra migration chi tao bang Identity.
+- Chay dotnet ef database update.
+- Xac minh bang, migration history, du lieu cu va FK.
+
+9. Ket qua Build
+Build succeeded, 0 errors, 2 warnings NU1901 tu NuGet.Packaging/NuGet.Protocol. Build trong qua trinh migration cung thanh cong.
+
+10. Ket qua kiem thu
+- AddIdentitySchema da ap dung; migration moi la migration cuoi.
+- Cac bang Identity ton tai, database cu khong mat du lieu, khong co FK violation.
+- Xac nhan build lai sau migration: dat.
+- Chua kiem thu login/register/role vi chua co Account endpoints va seed data.
+
+11. Cac loi da gap
+Lan database update dau tien dung tai migration lock cu con lai tu thang 10/2026; khong co migration nao duoc ap dung trong lan do.
+
+12. Cach khac phuc
+Da dung tien trinh EF dang treo, kiem tra row lock co timestamp cu va khong con tien trinh update nao chay, xoa row metadata lock cu, sau do chay lai database update va xac nhan thanh cong.
+
+13. Luu y cho buoc tiep theo
+Identity schema hien tai da co tren App.db. Cac giai doan tiep theo se them Account flows, email sender, role seeding va authorization. Khong duoc xoa cac bang Identity hoac dung EnsureCreated.

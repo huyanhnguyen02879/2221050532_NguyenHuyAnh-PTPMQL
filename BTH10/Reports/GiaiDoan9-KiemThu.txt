@@ -1,0 +1,61 @@
+BAO CAO GIAI DOAN 9 - KIEM THU HOI QUY
+
+1. Muc tieu
+Build lai va kiem thu Identity, authentication/authorization, CRUD cu, AJAX, search, pagination va tinh toan ven SQLite sau khi hoan tat cac giai doan.
+
+2. Phan tich
+Ung dung dung Identity tren ApplicationDbContext va App.db hien co; migration Identity da ap dung. Role policy duoc enforce tai server. Tien hanh test qua HTTP cho ma tran role, qua browser cho Bootstrap/jQuery modal Student va qua AJAX endpoints cho CRUD cua 4 thuc the.
+
+3. Cac file da sua
+- BTH10/Controllers/AccountController.cs: them Logout POST co Authorize va ValidateAntiForgeryToken sau khi test phat hien route 405.
+- BTH10/Reports/GiaiDoan9-KiemThu.txt.
+
+4. Cac file moi tao
+BTH10/Reports/GiaiDoan9-KiemThu.txt.
+
+5. Cac package da cai
+Khong cai package o giai doan nay. Toan bo thay doi phu thuoc Identity EF 10.0.12 da duoc ghi trong csproj va restore thanh cong.
+
+6. Migration da tao
+Khong tao migration moi. Migration cuoi: 20261119063414_AddIdentitySchema; EF nhan dien va database da ap dung.
+
+7. Thay doi database
+- App.db duoc checkpoint WAL sau migration/seed; du lieu Identity duoc luu trong file database chinh.
+- So dong cuoi: Students 11, Faculties 3, Employees 0, Lecturers 0, AspNetUsers 5, AspNetRoles 5, AspNetUserRoles 5.
+- Khong co foreign-key violation; khong con du lieu test CRUD/auth.
+- SQLite sidecar App.db-shm/App.db-wal duoc dong/checkpoint boi SQLite sau khi du lieu WAL duoc gop vao App.db.
+
+8. Cac buoc thuc hien
+- Chay dotnet build BTH10/BTH7.csproj.
+- Kiem tra EF migrations list va database.
+- Dang nhap tung role, kiem tra action duoc phep/tu choi.
+- Kiem tra lockout va Admin unlock.
+- Kiem tra auth flows qua fake email Development.
+- Kiem tra AJAX CRUD/search/pagination cho Student, Faculty, Lecturer, Employee; kiem tra them UI modal Student bang browser.
+- Kiem tra/logout va truy cap sau khi dang xuat.
+
+9. Ket qua Build
+dotnet build thanh cong, 0 errors, 4 warnings NU1901 (canh bao goi NuGet.Packaging/NuGet.Protocol duoc bao cao trong giai doan 1). Khong con build error.
+
+10. Ket qua kiem thu
+- Tat ca 5 role dang nhap duoc va role matrix dung theo chinh sach.
+- Lecturer AJAX truy cap Student/Create bi HTTP 403; request HTML bi redirect den AccessDenied.
+- Logout tra 302; sau logout Student route redirect den Login.
+- Lockout sau 5 lan sai; Administrator mo khoa; user dang nhap lai duoc.
+- Register-confirm email-login, forgot/reset password, change password, change email-confirm email-login deu dat voi Development sender.
+- AJAX Create/Edit/Delete/Search Student/Faculty/Lecturer/Employee dat; Student AJAX Pagination page 2 dat.
+- Browser UI Student: mo modal, tao, search, pagination, sua, xoa thanh cong; hang test khong con trong danh sach.
+- Database bao toan 11 Students/3 Faculties; khong co FK violation.
+- SMTP that chua duoc kiem thu do khong co host/credential; cau hinh Production duoc mo ta o GiaiDoan7-Email.txt.
+
+11. Cac loi da gap
+Test logout dau tien phat hien POST /Account/Logout tra HTTP 405 do view co nut dang xuat nhung controller chua co action.
+
+12. Cach khac phuc
+Them Logout POST, yeu cau authenticated user va antiforgery token; goi SignInManager.SignOutAsync. Build lai va xac nhan cookie bi xoa.
+
+13. Luu y cho buoc tiep theo
+- Development seed dung Admin@123456 cho 5 tai khoan mau; khong dung mat khau nay trong Production.
+- Production can seed tai khoan bang configuration/environment secrets va cau hinh SMTP bang cac khoa Smtp__*.
+- Build con 4 warning NU1901 tu dependency scaffolding co san; khong co loi build. Nullable warnings domain/views da co o baseline build.
+- Khong co test project trong repo; cac kiem thu trong giai doan nay la smoke/integration tests HTTP va browser.

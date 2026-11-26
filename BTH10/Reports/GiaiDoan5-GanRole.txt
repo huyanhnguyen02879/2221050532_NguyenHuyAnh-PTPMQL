@@ -1,0 +1,85 @@
+BAO CAO GIAI DOAN 5 - GAN ROLE CHO NGUOI DUNG
+
+1. Muc tieu
+Bo sung giao dien Administrator xem tai khoan, Role hien tai va cap nhat nhieu Role bang AJAX, khong reload trang, co validation va bao ve tai khoan Administrator cuoi cung.
+
+2. Phan tich hien trang
+- UserManagementController chi hien thi danh sach tai khoan va mo khoa tai khoan.
+- UserManager va RoleManager da duoc dang ky trong ASP.NET Core Identity.
+- Cac Role seed hien co: Administrator, Manager, Lecturer, Employee, Student.
+- Chua co giao dien gán hoac thu hoi Role cho IdentityUser.
+- AspNetUserRoles ho tro quan he nhieu-nhieu giua nguoi dung va Role.
+
+3. Phuong an da de xuat
+- Phuong an A: user chon nhieu checkbox Role va server thay the tap Role bang UserManager AddToRoles/RemoveFromRoles.
+- Phuong an B: moi nguoi dung chi co mot Role duoc luu trong bang Rieng.
+- Phuong an C: khong cho thay doi Role va chi dung seed role.
+
+4. Phuong an duoc lua chon
+Phuong an A vi tan dung AspNetUserRoles, ho tro nhieu Role va giu nguyen Identity architecture.
+
+5. Cac file da sua
+- BTH10/Models/AppRoles.cs
+- BTH10/Controllers/UserManagementController.cs
+- BTH10/Views/UserManagement/Index.cshtml
+- BTH10/Views/UserManagement/_EditRoles.cshtml
+- BTH10/Views/UserManagement/EditRoles.cshtml
+- BTH10/wwwroot/js/userRoles.js
+
+6. Cac file moi tao
+- Partial/Edit Roles, view fallback va JavaScript AJAX nho day du tren.
+
+7. Cac package da cai
+Khong cai package moi.
+
+8. Migration da tao
+Khong tao migration moi.
+
+9. Thay doi Database
+Khong thay doi schema. Thao tac tren AspNetUserRoles:
+- Dat Manager va Employee cho tai khoan manager@system.local trong kiem thu.
+- Thu hoi Employee va khoi phuc chi con Manager sau kiem thu.
+- Khong thay doi Role cua tai khoan Administrator.
+
+10. Cac buoc thuc hien
+- Them Roles va UserRoleEditViewModel.
+- Them RoleManager vao UserManagementController.
+- Hien thi danh sach Role hien tai tren trang tai khoan.
+- Them modal checkbox chon nhieu Role.
+- Thuc hien AddToRolesAsync/RemoveFromRolesAsync.
+- Cap nhat Security Stamp sau thay doi Role de danh sach Role cookie duoc xac thuc lai.
+- Chan thu hoi Administrator neu tai khoan hien tai la Administrator cuoi cung.
+- Tu choi Role ID khong hop le.
+- Loc cac Role ID rong trong form POST.
+- Them AJAX modal va fallback MVC view.
+
+11. Ket qua Build
+- dotnet build thanh cong sau phat hien va sua loi type IReadOnlyList.
+- 0 build error sau build cuoi.
+- Cac warning hien tai giong giai doan truoc, khong co loi moi trong controller/view moi.
+
+12. Ket qua kiem thu
+- Trang UserManagement render va co nut Cap nhat Role.
+- Chua dang nhap van bi redirect denial trang quan ly.
+- Thu hoi Role Administrator cua tai khoan cuoi cung tra validation va khong cho phep.
+- Gán dong thoi Manager va Employee cho manager@system.local thanh cong.
+- SQL xac nhan role sau gán la Employee,Manager.
+- Thu hoi Employee thanh cong.
+- SQL sau thu hoi chi con Manager.
+- Security Stamp duoc cap nhat sau thay doi Role.
+
+13. Cac loi phat hien
+- PowerShell form test ban dau gui array sai dinh dang va server tra "Co Role khong hop le".
+- Build tam thoi dung vi server dang chay va giu executable.
+- Loi nay khong xay ra voi form checkbox browser vi browser gui repeated form fields.
+
+14. Cach khac phuc
+- Loc bo Role ID rong va disallow role id khong ton tai.
+- Dung repeated form field trong smoke test dung nguon HTML browser.
+- Dung stop server truoc dotnet build de tranh lock executable.
+
+15. Luu y cho giai doan tiep theo
+- Giai doan tiep theo la phan quyen dong theo Controller/Action voi AuthorizationPolicyProvider va AuthorizationHandler.
+- Can chuyen cac [Authorize(Roles=...)] hard-code sang permission DB.
+- Bo sung migration cho bang DynamicPermission neu chon luu Controller/Action trong DB.
+- Duy tri Administrator high priority va fallback de khong khoa toan bo he thong.

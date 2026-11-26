@@ -1,0 +1,43 @@
+@model BTH7.Models.UserRoleEditViewModel
+
+<div class="modal-header">
+    <h2 class="modal-title fs-5" id="user-role-modal-title">Cập nhật Role</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+</div>
+<form asp-action="EditRoles"
+      asp-route-id="@Model.UserId"
+      method="post"
+      class="js-user-role-form"
+      data-user-id="@Model.UserId">
+    <div class="modal-body">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <p class="mb-3"><strong>Tài khoản:</strong> @Model.Email</p>
+        @if (Model.Roles.Count == 0)
+        {
+            <div class="alert alert-warning">Chưa có Role nào trong hệ thống.</div>
+        }
+        else
+        {
+            <div class="row g-2">
+                @foreach (var role in Model.Roles)
+                {
+                    <div class="col-md-6">
+                        <div class="form-check border rounded p-3">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   name="selectedRoleIds"
+                                   value="@role.Id"
+                                   id="role-@role.Id"
+                                   checked="@role.Selected" />
+                            <label class="form-check-label" for="role-@role.Id">@role.Name</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="submit" class="btn btn-primary">Lưu Role</button>
+    </div>
+</form>

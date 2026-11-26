@@ -1,0 +1,74 @@
+BAO CAO GIAI DOAN 8 - EMAIL
+
+1. Muc tieu
+Kiem tra Register, ConfirmEmail, ForgotPassword, ResetPassword va trang thai cau hinh SMTP.
+
+2. Phan tich hien trang
+- IEmailSender duoc dang ky qua DI.
+- DevelopmentEmailSender ghi email to/subject/message vao log va khong gui ra ben ngoai.
+- SmtpEmailSender doc SmtpOptions tu appsettings/environment.
+- appsettings.json co Host, SenderEmail, UserName, Password rong.
+- Register va ForgotPassword tao callback URL bang Url.ActionLink.
+- ConfirmEmail dung UserManager ConfirmEmailAsync.
+- ResetPassword dung UserManager GeneratePasswordResetTokenAsync va ResetPasswordAsync.
+
+3. Phuong an da de xuat
+- Phuong an A: giu Development sender cho Development va SMTP sender cho moi truong Production.
+- Phuong an B: luon dung SMTP bang cac thong tin hard-code.
+- Phuong an C: tat email va bo callback flow.
+
+4. Phuong an duoc lua chon
+Phuong an A. Duong email da tach DI va khong hard-code SMTP; Production se can cau hinh thong tin that.
+
+5. Cac file da sua
+Khong sua ma nguon trong giai doan nay.
+
+6. Cac file moi tao
+Khong co file ma nguon moi.
+
+7. Cac package da cai
+Khong cai package moi.
+
+8. Migration da tao
+Khong tao migration moi.
+
+9. Thay doi Database
+Khong thay doi schema.
+- Tao va dọn tai khoan smoke email.smoke@example.local sau kiem thu.
+
+10. Cac buoc thuc hien
+- Xac nhan DI chon DevelopmentEmailSender trong Development.
+- Dang ky tai khoan smoke.
+- Doc link ConfirmEmail tu log.
+- Mo link va ConfirmEmailAsync thanh cong.
+- Goi ForgotPassword cho tai khoan da xac nhan.
+- Doc link ResetPassword tu log.
+- Mo link, dat mat khau moi va login lai thanh cong.
+- Kiem tra appsettings SMTP rong.
+
+11. Ket qua Build
+- dotnet build thanh cong.
+- 0 error.
+- Con 2 warning NU1901 ve NuGet.
+
+12. Ket qua kiem thu
+- DevelopmentEmailSender ghi email va callback day du.
+- Register confirmation page hoat dong.
+- ConfirmEmail callback hoat dong va xac nhan tai khoan.
+- ForgotPassword callback hoat dong va gui email gia lap qua log.
+- ResetPassword callback hoat dong.
+- Dat lai mat khau va dang nhap bang mat khau moi thanh cong.
+- SMTP thuc te CHUA duoc xac minh vi Host/SenderEmail/UserName/Password rong.
+
+13. Cac loi phat hien
+- Khong co loi build/runtime trong luong callback.
+- Khong co dich vu SMTP that de gui email ra internet.
+
+14. Cach khac phuc
+- Production can dat Smtp:Host, Smtp:Port, Smtp:SenderEmail, Smtp:SenderName, Smtp:EnableSsl va neu can Smtp:UserName/Smtp:Password qua environment variables hoac User Secrets.
+- Khong commit Smtp:Password vao repository.
+
+15. Luu y cho giai doan tiep theo
+- Giai doan 9 can kiem thu toan bo build, auth, authorization, CRUD, AJAX va database mot lan cuoi.
+- Can kiem thu Account confirmation bang giao dien that neu co SMTP/Sandbox.
+- Can xac minh password nu seeding khong bi de lo trong appsettings Development neu da duoc reuse.

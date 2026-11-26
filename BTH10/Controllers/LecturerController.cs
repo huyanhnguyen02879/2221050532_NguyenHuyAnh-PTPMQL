@@ -2,6 +2,7 @@ using BTH7.Data;
 using BTH7.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BTH7.Controllers
 {

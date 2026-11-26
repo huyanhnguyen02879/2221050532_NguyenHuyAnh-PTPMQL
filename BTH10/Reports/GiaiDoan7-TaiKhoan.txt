@@ -1,0 +1,71 @@
+BAO CAO GIAI DOAN 7 - HE THONG TAI KHOAN
+
+1. Muc tieu
+Chuan hoa luong dang ky: Administrator duoc seed; tai khoan dang ky moi khong tu dong co Role; moi tai khoan moi can xac nhan email truoc khi dang nhap.
+
+2. Phan tich hien trang
+- AccountController dang ky truoc do tu dong AddToRoleAsync(user, Student).
+- Identity SignIn.RequireConfirmedAccount=true va RequireUniqueEmail=true da duoc cau hinh.
+- IdentitySeeder tao Administrator va cac role tai khoan trong appsettings Development.
+- Register da kiem tra Role Student ton tai va ket xac nhan email.
+
+3. Phuong an da de xuat
+- Phuong an A: bo AddToRole o Register, chi gui email xac nhan va de Administrator gán Role.
+- Phuong an B: mac dinh gán Role Student moi dang ky.
+- Phuong an C: khong cho dang ky va chi seed tat ca tai khoan.
+
+4. Phuong an duoc lua chon
+Phuong an A theo yeu cau: tai khoan moi khong co Role quan tri va khong tu dong co Role, de Administrator quyet dinh.
+
+5. Cac file da sua
+- BTH10/Controllers/AccountController.cs
+- BTH10/appsettings.Development.json
+
+6. Cac file moi tao
+Khong co file ma nguon moi.
+
+7. Cac package da cai
+Khong cai package moi.
+
+8. Migration da tao
+Khong tao migration moi.
+
+9. Thay doi Database
+Khong thay doi schema.
+- appsettings Development chi seed Administrator; cac seed Manager/Lecturer/Employee/Student cu van duoc giu neu da ton tai trong App.db va se khong duoc tao lai qua cau hinh moi.
+- Tai khoan smoke account da duoc tao va dọn sau kiem thu.
+
+10. Cac buoc thuc hien
+- Xoa RoleManager khoi AccountController constructor neu khong con dung.
+- Kiem tra Email da ton tai truoc khi tao tai khoan.
+- Tao IdentityUser voi EmailConfirmed=false mac dinh.
+- Bo AddToRoleAsync Student khoi luong Register.
+- Gioi han Development seed Accounts chi con Administrator.
+- Build va chay app.
+- Dang ky tai khoan test, thu login truoc xac nhan, thu dang ky lai email Administrator.
+
+11. Ket qua Build
+- dotnet build thanh cong.
+- 0 build error.
+- 2 warning NU1901 va cac warning nullable hien co.
+
+12. Ket qua kiem thu
+- Dang ky tai khoan moi render trang RegisterConfirmation thanh cong.
+- Tai khoan smoke trong SQL co EmailConfirmed=false.
+- Tai khoan smoke co 0 AspNetUserRole.
+- Login tai khoan chua xac nhan bi tu choi.
+- Dang ky lai admin@system.local tra thong bao Email da duoc dang ky va khong tao tai khoan moi.
+- Tai khoan smoke da duoc xoa sach sau kiem thu.
+
+13. Cac loi phat hien
+- Regex smoke test khong match chu da duoc HTML encode trong response; phan nay khong phai loi he thong.
+- Tai khoan seed Manager/Lecturer/Employee/Student cu van co the ton tai trong App.db neu da duoc seed o giai doan truoc.
+
+14. Cach khac phuc
+- Kiem tra duplicate bang response HTML thuc te va SQL thay vi chi regex unencoded.
+- Clean tai khoan smoke va cac bang lien quan.
+
+15. Luu y cho giai doan tiep theo
+- Giai doan 8 kiem tra Register, ConfirmEmail, ForgotPassword, ResetPassword va ChangeEmail.
+- Development email sender chi ghi log; SMTP production chua duoc xac minh.
+- Neu ban muon xoa cac tai khoan role seed cu trong database, can xac nhan va dung thao tac target, khong dung migration don xoa du lieu.

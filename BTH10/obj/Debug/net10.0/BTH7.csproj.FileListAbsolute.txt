@@ -663,3 +663,7 @@ E:\2627ptpmql\BTH10\obj\Debug\net10.0\compressed\smchke816r-{0}-g3h3t7eh18-g3h3t
 E:\2627ptpmql\BTH10\obj\Debug\net10.0\compressed\jwl45p4ulp-{0}-1iso70tdbg-1iso70tdbg.gz
 E:\2627ptpmql\BTH10\obj\Debug\net10.0\compressed\r7mwyb0t1l-{0}-o4acrx54pe-o4acrx54pe.gz
 E:\2627ptpmql\BTH10\obj\Debug\net10.0\compressed\gmjpygzrpx-{0}-ry1o0rk91n-ry1o0rk91n.gz
+E:\2627ptpmql\BTH10\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+E:\2627ptpmql\BTH10\obj\Debug\net10.0\compressed\pei9rktheo-{0}-252oxhidhe-252oxhidhe.gz
+E:\2627ptpmql\BTH10\obj\Debug\net10.0\compressed\242h99rwnx-{0}-r46jvol8rb-r46jvol8rb.gz
+E:\2627ptpmql\BTH10\obj\Debug\net10.0\compressed\5i570hejid-{0}-162dxsxcty-162dxsxcty.gz

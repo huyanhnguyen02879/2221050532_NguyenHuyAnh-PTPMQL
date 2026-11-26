@@ -1,0 +1,102 @@
+BAO CAO GIAI DOAN 6 - PHAN QUYEN DONG
+
+1. Muc tieu
+Thay phan quyen role hard-code bang phan quyen dong theo Controller va Action, co ma tran cap/thu hoi va handler kich hoat ngay sau thay doi.
+
+2. Phan tich hien trang
+- Student, Faculty, Lecturer, Employee va Person dung [Authorize(Roles=...)] hard-code.
+- UserManagement va RoleManagement dung policy ManageUsers hard-code.
+- Layout kiem tra policy ManageUsers thay vi permission tung action.
+- He thong da co Identity role va ASP.NET Core Authorization.
+
+3. Phuong an da de xuat
+- Phuong an A: IAuthorizationPolicyProvider + AuthorizationHandler + bang DynamicPermission/RolePermission.
+- Phuong an B: Role claim co [Authorize(Policy=...)].
+- Phuong an C: MVC ActionFilter doc DB.
+
+4. Phuong an duoc lua chon
+Phuong an A. Policy provider tao policy theo Permission:<Controller>.<Action>; handler doc RolePermission va Identity role.
+
+5. Cac file da sua
+- BTH10/Program.cs
+- BTH10/Data/ApplicationDbContext.cs
+- BTH10/Data/IdentitySeeder.cs
+- BTH10/Models/DynamicPermission.cs
+- BTH10/Services/DynamicPermissionAuthorization.cs
+- BTH10/Controllers/PermissionManagementController.cs
+- BTH10/Controllers/StudentController.cs
+- BTH10/Controllers/FacultyController.cs
+- BTH10/Controllers/LecturerController.cs
+- BTH10/Controllers/EmployeeController.cs
+- BTH10/Controllers/PersonController.cs
+- BTH10/Controllers/UserManagementController.cs
+- BTH10/Controllers/RoleManagementController.cs
+- BTH10/Views/Shared/_Layout.cshtml
+- BTH10/Views/PermissionManagement/Index.cshtml
+- BTH10/Views/PermissionManagement/_PermissionMatrix.cshtml
+- BTH10/wwwroot/js/permissionManagement.js
+
+6. Cac file moi tao
+- Migration 20261126063915_AddDynamicPermissions.cs va Designer.
+- DynamicPermission.cs.
+- DynamicPermissionAuthorization.cs.
+- PermissionManagementController.cs, view va script ma tran.
+
+7. Cac package da cai
+Khong cai package moi.
+
+8. Migration da tao
+20261126063915_AddDynamicPermissions.
+
+9. Thay doi Database
+- Them bang DynamicPermissions:
+  Id, Controller, Action, Description.
+- Them bang RolePermissions:
+  RoleId, PermissionId, khoa ngoai toi AspNetRoles va DynamicPermissions.
+- Them unique index tren Controller+Action.
+- Seed 34 permission va 64 RolePermission mac dinh.
+- Khong xoa du lieu nghiep vu.
+
+10. Cac buoc thuc hien
+- Xoa [Authorize(Roles=...)] khoi cac controller/module nghiep vu.
+- Dang ky global DynamicPermissionAuthorizationFilter.
+- Thuc hien PolicyProvider va AuthorizationHandler.
+- Loc Account/Home khoi dynamic filter de giu luong dang nhap/dang ky cong khai.
+- Administrator luon duoc phep toan bo action.
+- Them PermissionManagementController va ma tran cap/thu hoi bang AJAX.
+- Seed permission va mapping mac dinh theo role.
+- Tao/ap dung migration.
+- Build, khoi dong app va smoke test.
+
+11. Ket qua Build
+- dotnet build thanh cong sau migration.
+- 0 error.
+- Con 2 warning NU1901 ve NuGet.Packaging/NuGet.Protocol.
+- Cac warning nullable hien co khong lien quan den Dynamic Permission.
+
+12. Ket qua kiem thu
+- Migration AddDynamicPermissions da ap dung thanh cong.
+- Migration history co migration moi.
+- Database seed 34 DynamicPermissions va 64 RolePermissions.
+- Admin truy cap PermissionManagement thanh cong.
+- Manager truy cap Student.Index thanh cong.
+- Manager truy cap PermissionManagement bi redirect den AccessDenied.
+- Student truy cap Student.Index bi redirect den AccessDenied.
+- Chua dang nhap truy cap Student bi redirect den Login.
+- Thu hoi Manager.Student.Index thanh cong va Manager bi tu choi tai action ngay lap tuc.
+- Cap lai permission thanh cong.
+- PRAGMA foreign_key_check khong co vi pham.
+- Students 11, Faculties 3 duoc giu nguyen.
+
+13. Cac loi phat hien
+- Build ban dau khong co loi source.
+- Viec login va AccessDenied co the tra trang HTTP 200 sau redirect, nen smoke test phai kiem tra noi dung AccessDenied thay vi chi StatusCode.
+
+14. Cach khac phuc
+- Xac nhan ket qua authorize qua trang AccessDenied va noi dung UI.
+- Dung POST thu gong anti-forgery va repeated form fields cho permission AJAX.
+
+15. Luu y cho giai doan tiep theo
+- Giai doan 7 can kiem tra va chuan hoa luong tai khoan, seed Administrator va che do dang ky.
+- Giai doan 8 kiem tra Register/confirm/forgot/reset va SMTP.
+- Chua co vi sao SQL mirgation lock sau migration se tiep tuc duoc dong bo.

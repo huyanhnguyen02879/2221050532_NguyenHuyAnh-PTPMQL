@@ -1,0 +1,64 @@
+BAO CAO GIAI DOAN 1 - PHAN TICH DU AN
+
+1. Muc tieu
+Khao sat ma nguon BTH10 truoc khi thay doi; xac nhan build, cau truc MVC/EF Core, migration va du lieu SQLite hien co; de xuat lo trinh tich hop Identity.
+
+2. Phan tich
+- Project nam trong thu muc BTH10 nhung file project la BTH7.csproj, target net10.0, namespace BTH7.
+- MVC voi cac controller Student, Faculty, Lecturer, Employee, Home va Person; giao dien Razor/Bootstrap; cac danh sach CRUD su dung jQuery AJAX modal, tim kiem va phan trang.
+- ApplicationDbContext hien ke thua DbContext, dung SQLite; cac bang nghiep vu va quan he Student-Faculty duoc bao toan qua migrations hien co.
+- Program.cs moi dang ky MVC va ApplicationDbContext; chua co Identity, cookie authentication, authorization, seed data, email sender hay migration tu dong.
+- appsettings.json tro den App.db (Cache=Shared). App.db dang co du lieu: Students 11, Faculties 3, Employees 0, Lecturers 0. Ca 8 migration hien co da duoc ghi nhan trong __EFMigrationsHistory.
+- CRUD controllers co ho tro AJAX va form truyen thong; Faculty chan xoa khoa co sinh vien; Student tao StudentCode tu khoa. Layout hien chua co navigation den cac trang nghiep vu.
+- PersonController la controller cu truy cap Student, nhung khong co Views/Person; can danh gia route nay khi ap dung authorization de khong de lai duong truy cap bo qua chinh sach.
+- Student.AdmissionYear duoc Ignore trong model EF; khong nen thay doi schema nay trong pham vi Identity.
+- Khong tim thay test project/test case trong BTH10. Cac file bin/obj va thu vien frontend co san khong duoc xem la ma nguon can sua.
+
+3. Cac van de hien co
+- Chua co Identity/Authentication/Authorization; cac action CRUD hien tai chua yeu cau dang nhap.
+- Chua co cac trang tai khoan, email sender, confirm/reset token flow, role policies hay seed role/user.
+- Build nen thanh cong nhung co 12 warnings: 2 canh bao NU1901 ve NuGet.Packaging/NuGet.Protocol; 8 canh bao nullable tren cac model Student/Lecturer/Employee; 2 canh bao nullable trong Student Details/Delete view.
+- Migrations lich su co migration Remove_Phone_Column va AddTrainingSystem rong. Khong sua lai migration cu; them migration Identity theo huong additive.
+- Student va Faculty hien co du lieu. Can sao luu va xac nhan ket qua database sau migration; khong duoc dung EnsureCreated thay cho migrations.
+
+4. Ke hoach nang cap de xuat
+1) Xac nhan ma tran quyen va quy tac mat khau seed.
+2) Giai quyet/cam ket tinh trang nen: giu nguyen schema nghiep vu, xac nhan build va chay app; chi sua loi phat sinh hoac can thiet cho tich hop.
+3) Ke thua IdentityDbContext, dang ky Identity/cookie, tao migration Identity toi thieu va cap nhat SQLite an toan.
+4) Them Account MVC va view Bootstrap cho dang nhap/dang xuat/dang ky/doi mat khau/quen mat khau/dat lai/xac nhan email/doi email, cung AccessDenied.
+5) Them role policies, bao ve controller/action tai server, dong bo lien ket giao dien; xu ly unlock tai khoan neu kich hoat lockout.
+6) Seed roles va tai khoan idempotent, khong tao tai khoan trung; dua thong tin nhay cam ra User Secrets/environment variables.
+7) Them email sender qua DI: SMTP doc tu configuration; sender gia lap chi cho Development va ghi ro cach lay link kiem thu.
+8) Build, ap dung migration tren database hien tai, smoke-test luong auth/authorization; kiem tra lai cac luong CRUD/AJAX/search/pagination va tinh toan ven du lieu.
+
+5. Cac file da sua
+Chi tao bao cao phan tich nay; chua sua ma nguon.
+
+6. Cac file moi tao
+BTH10/Reports/GiaiDoan1-PhanTich.txt.
+
+7. Cac package da cai
+Khong cai package.
+
+8. Migration da tao
+Khong tao migration.
+
+9. Thay doi database
+Khong thay doi database. Kiem tra read-only cho thay 11 sinh vien, 3 khoa, 0 nhan vien, 0 giang vien; 8 migration hien co da ap dung.
+
+10. Cac buoc va ket qua
+- Doc cac controllers, models, DbContext, Program.cs, appsettings, migrations/snapshot, Razor views, JS/CSS va cau hinh launch.
+- Chay dotnet build BTH10/BTH7.csproj --no-restore: Build succeeded, 0 errors, 12 warnings.
+- Kiem tra migration history va so luong dong bang SQLite theo ket noi read-only.
+
+11. Kiem thu
+Build nen: DAT (0 errors). Chua chay migration moi hoac test authentication/authorization/AJAX vi chua co cac chuc nang Identity. Chua xac nhan SMTP that.
+
+12. Loi gap va khac phuc
+Khong co build error nen khong can sua code trong giai doan phan tich. Cac warnings va migration rong da duoc ghi nhan, khong sua migration lich su hoac warnings khong lien quan.
+
+13. Luu y cho buoc tiep theo
+- Pha role access can duoc phe duyet truoc khi gan [Authorize], nhat la Student hien chua co quan he voi tai khoan Identity de gioi han du lieu theo chu so huu.
+- Muc mat khau cua cac tai khoan seed ngoai Administrator chua duoc quy dinh.
+- Khong co thong tin SMTP that; can dung sender gia lap Development va cau hinh SMTP qua environment/User Secrets khi trien khai.
+- Khong tu dong xoa/sua App.db; migration Identity phai them bang Identity ma khong lam mat cac bang nghiep vu.

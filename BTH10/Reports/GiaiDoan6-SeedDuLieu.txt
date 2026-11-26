@@ -1,0 +1,56 @@
+BAO CAO GIAI DOAN 6 - SEED ROLE VA TAI KHOAN
+
+1. Muc tieu
+Tu dong seed 5 role va cac tai khoan mau theo cach idempotent, khong tao user/role trung.
+
+2. Phan tich
+Roles Administrator, Manager, Lecturer, Employee, Student duoc tao neu chua co tren moi environment. Tai khoan mau duoc bat trong Development va tat mac dinh o Production. Development dung mot mat khau Admin@123456 cho 5 tai khoan theo chap thuan; email duoc xac nhan de kiem thu login. Production muon seed user phai bat IdentitySeed:SeedDefaultUsers va cau hinh mat khau rieng tung account qua configuration/environment.
+
+3. Cac file da sua
+- BTH10/Program.cs: goi seed khi app khoi dong.
+- BTH10/appsettings.Development.json: danh sach 5 tai khoan mau va mat khau Development.
+- BTH10/Reports/GiaiDoan6-SeedDuLieu.txt.
+
+4. Cac file moi tao
+- BTH10/Data/IdentitySeeder.cs.
+- BTH10/Reports/GiaiDoan6-SeedDuLieu.txt.
+
+5. Cac package da cai
+Khong cai package.
+
+6. Migration da tao
+Khong tao migration moi; dung migration AddIdentitySchema da ap dung o giai doan 3.
+
+7. Thay doi database
+- App startup tao 5 role va 5 user; gan moi user dung role.
+- Database cu van co 11 Students, 3 Faculties, 0 Employees, 0 Lecturers.
+- Chay app hai lan; khong tao role/user trung (5 user_roles).
+
+8. Cac buoc thuc hien
+- Them IdentitySeeder va validate role/email/password config.
+- Them config seed chi cho Development.
+- Khoi dong app hai lan va kiem tra bang Identity.
+- Dang nhap va truy cap cac route theo tung role.
+- Kich hoat lockout sau 5 lan sai; mo khoa qua giao dien Administrator.
+
+9. Ket qua Build
+Build succeeded, 0 errors, 12 warnings (2 NU1901, 8 nullable domain model, 2 nullable Student view).
+
+10. Ket qua kiem thu
+- Tat ca 5 user dang nhap duoc (HTTP 302 sau POST login).
+- Administrator: truy cap duoc cac CRUD va UserManagement.
+- Manager: truy cap duoc cac CRUD, khong duoc UserManagement.
+- Lecturer: doc Student/Lecturer duoc; Student Create va Faculty bi tu choi.
+- Employee: doc Employee duoc; Employee Create va Student bi tu choi.
+- Student: bi tu choi cac trang CRUD nghiep vu.
+- 5 lan dang nhap sai khoa tai khoan; Administrator mo khoa thanh cong; Student dang nhap lai thanh cong.
+- Seed lap lai khong sinh du lieu trung.
+
+11. Cac loi da gap
+Build lan dau phat hien ILogger<T> khong the dung static class IdentitySeeder lam type argument va UserManager khong co SetEmailConfirmedAsync.
+
+12. Cach khac phuc
+Dung ILoggerFactory.CreateLogger va cap nhat EmailConfirmed qua UserManager.UpdateAsync; build va seed lai dat.
+
+13. Luu y cho buoc tiep theo
+Mat khau mau chi duoc nap tu appsettings.Development.json. Production khong tu dong tao tai khoan; can cau hinh IdentitySeed__SeedDefaultUsers=true va IdentitySeed__Accounts__{index}__Email/Role/Password bang secret environment/User Secrets truoc khi bat seed.

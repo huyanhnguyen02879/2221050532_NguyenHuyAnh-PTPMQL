@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using BTH7.Models;
 using BTH7.Data;
 

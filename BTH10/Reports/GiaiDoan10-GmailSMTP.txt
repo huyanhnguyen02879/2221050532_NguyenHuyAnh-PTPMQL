@@ -1,0 +1,109 @@
+BAO CAO GIAI DOAN 10 - KET NOI EMAIL THAT VA KET THUC KIEM THU
+
+1. Muc tieu
+Cho phep ung dung gui email xac nhan, quen mat khau va thay doi email bang Gmail/Outlook SMTP, giu cac CRUD, Identity, Role va dynamic permission hien co khong bi hong.
+
+2. Phan tich hien trang
+- IEmailSender truoc day trong Development luon dung DevelopmentEmailSender va chi ghi log.
+- appsettings Smtp co Host/SenderEmail rong nen khong gui email that.
+- AccountController goi sender cho Register, ResendConfirmation, ForgotPassword, ChangeEmail.
+- ForgotPassword chua bat SmtpException nen co the tra HTTP 500 khi SMTP loi.
+
+3. Phuong an da de xuat
+- Phuong an A: neu Smtp:Host va Smtp:SenderEmail co gia tri thi dung SMTP, con thieu thi dung DevelopmentEmailSender.
+- Phuong an B: luon dung SMTP trong moi truong, ke ca Development.
+- Phuong an C: giu log sender va khong ho tro SMTP that.
+
+4. Phuong an duoc lua chon
+Phuong an A. SMTP se tu dong kich hoat trong Development khi da cau hinh du; neu chua cau hinh, ung dung van chay va ghi log nhu truoc.
+
+5. Cac file da sua
+- BTH10/Program.cs
+- BTH10/appsettings.Development.json
+- BTH10/BTH7.csproj
+- BTH10/Controllers/AccountController.cs
+- BTH10/Services/SmtpEmailSender.cs
+
+6. Cac file moi tao
+- Bao cao nay.
+
+7. Cac package da cai
+Khong cai package moi.
+
+8. Migration da tao
+Khong tao migration moi.
+
+9. Thay doi Database
+Khong thay doi schema migration.
+- Tao tai khoan Gmail huyanhnguyen2605@gmail.com bang luong Register.
+- Tai khoan Gmail hien co EmailConfirmed=false cho den khi mo link xac nhan gui den hop thu.
+- Khong tao du lieu module nghiep vu moi.
+
+10. Cac buoc thuc hien
+- Them UserSecretsId vao project.
+- Cau hinh Gmail SMTP qua dotnet user-secrets:
+  - Smtp:Host=smtp.gmail.com
+  - Smtp:Port=587
+  - Smtp:EnableSsl=true
+  - Smtp:SenderEmail
+  - Smtp:UserName
+  - Smtp:Password
+- Dua SenderEmail Gmail vao appsettings.Development.json.
+- Sua DI de chon SmtpEmailSender khi Host/SenderEmail duoc cau hinh.
+- Them catch SmtpException va InvalidOperationException vao Register.
+- Them catch giong nhau vao ResendConfirmation, ForgotPassword va ChangeEmail.
+- Log loi SMTP tai SmtpEmailSender thay vi tra nguyen ngoai le ra HTTP 500.
+- Build va khoi dong app.
+- Dang ky tai khoan Gmail.
+- Kiem tra Student, Faculty, Lecturer, Employee, Role, User va Permission endpoint.
+- Kiem tra ForgotPassword/ResendConfirmation sau khi sua handler.
+- Kiem tra migration/FK va du lieu cu.
+
+11. De dung Outlook/Microsoft 365
+Can cap nhat User Secrets:
+- Host: smtp.office365.com
+- Port: 587
+- EnableSsl: true
+- SenderEmail: diachi@outlook.com hoac diachi microsoft365
+- UserName: diachi@outlook.com hoac diachi microsoft365
+- Password: App Password neu tai khoan yeu cau MFA
+
+Vi du:
+dotnet user-secrets set "Smtp:Host" "smtp.office365.com" --project E:\2627ptpmql\BTH10\BTH7.csproj
+dotnet user-secrets set "Smtp:Port" "587" --project E:\2627ptpmql\BTH10\BTH7.csproj
+dotnet user-secrets set "Smtp:EnableSsl" "true" --project E:\2627ptpmql\BTH10\BTH7.csproj
+dotnet user-secrets set "Smtp:SenderEmail" "diachi@outlook.com" --project E:\2627ptpmql\BTH10\BTH7.csproj
+dotnet user-secrets set "Smtp:UserName" "diachi@outlook.com" --project E:\2627ptpmql\BTH10\BTH7.csproj
+dotnet user-secrets set "Smtp:Password" "APP_PASSWORD" --project E:\2627ptpmql\BTH10\BTH7.csproj
+
+Sau do khoi dong lai app va dang ky bang dia chi Outlook.
+
+12. Ket qua Build
+- dotnet build thanh cong.
+- 0 error.
+- Con 2 warning NU1901 ve NuGet.Packaging/NuGet.Protocol.
+- Cac warning nullable hien co cua model/view van con.
+
+13. Ket qua kiem thu
+- Gmail SMTP da gui email dang ky thanh cong bang tai khoan huyanhnguyen2605@gmail.com.
+- Tai khoan Gmail da duoc tao trong App.db va hien EmailConfirmed=false.
+- ForgotPassword va ResendConfirmation sau sua loi tra HTTP 200, khong con HTTP 500.
+- CRUD/AJAX endpoint Student, Faculty, Lecturer, Employee tra 200.
+- RoleManagement, UserManagement, PermissionManagement tra 200.
+- SQLite foreign_key_check khong co vi pham.
+- Students: 11.
+- Faculties: 3.
+- AspNetUsers: 6 (goi kem tai khoan Gmail moi).
+- Migrations history: 10.
+
+14. Cac loi phat hien
+- ForgotPassword gay HTTP 500 vi loi SMTP transport khong duoc bat trong AccountController.
+- Mot script smoke PowerShell phat sinh loi cu phap hash table; khong phai loi app.
+- Khong the tu mo va bam link trong hop thu Gmail bang environment hien tai.
+
+15. Cach khac phuc
+- Da bat SmtpException va InvalidOperationException o toan bo luong email.
+- Da lam SMTP tu dong kich hoat khi cau hinh ton tai.
+- De xac nhan tai khoan Gmail, mo email vua nhan va bam link.
+- Neu email khong den, kiem tra Spam/Promotion va thong so Gmail: SMTP AUTH/App Password/2FA.
+- De su dung Outlook, thay User Secrets Host/Username/Sender/Password va khoi dong lai app.

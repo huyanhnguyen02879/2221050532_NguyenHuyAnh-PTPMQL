@@ -1,0 +1,17 @@
+@model BTH7.Models.PermissionManagementViewModel
+
+@{
+    ViewData["Title"] = "Phân quyền động";
+}
+
+<h1 class="h3 mb-4">Phân quyền theo Controller và Action</h1>
+@Html.AntiForgeryToken()
+
+<div id="permission-error" class="alert alert-danger d-none" role="alert"></div>
+<div id="permission-matrix-container">
+    <partial name="_PermissionMatrix" model="Model" />
+</div>
+
+@section Scripts {
+    <script src="~/js/permissionManagement.js" asp-append-version="true"></script>
+}

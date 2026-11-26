@@ -1,0 +1,16 @@
+@model bool
+
+@{
+    ViewData["Title"] = "Xác nhận email mới";
+}
+
+<div class="alert @(Model ? "alert-success" : "alert-danger")">
+    @if (Model)
+    {
+        <p class="mb-0">Email đăng nhập mới đã được xác nhận.</p>
+    }
+    else
+    {
+        <p class="mb-0">Liên kết không hợp lệ, email đã được sử dụng hoặc đã hết hạn.</p>
+    }
+</div>
